@@ -69,13 +69,30 @@ func dispatch(w http.ResponseWriter, r *http.Request) {
 		getInstance(w, url)
 	} else if strings.Contains(url, "AssignPrivateIpAddresses") {
 		assigneIP(url, "", "")
+		writeResponseCode(w)
 	} else if strings.Contains(url, "UnassignPrivateIpAddresses") {
 		releaseIP(url, "", "")
+		writeResponseCode(w)
 	} else if strings.Contains(url, "MigratePrivateIpAddress") {
 		migrateIP(url)
+		writeResponseCode(w)
 	} else {
 		fmt.Println(url)
 	}
+	return
+}
+
+func writeResponseCode(w http.ResponseWriter) {
+	data := vpc.PrivateIPAddressesActionResponse{
+		Data: vpc.PrivateIPAddressesActionResponseData{
+			Code:     0,
+			CodeDesc: "",
+		},
+		Message: "",
+		Code:    0,
+	}
+	dataJSON, _ := json.Marshal(data)
+	io.WriteString(w, string(dataJSON))
 	return
 }
 
