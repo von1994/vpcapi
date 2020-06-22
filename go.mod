@@ -14,3 +14,7 @@ require (
 	google.golang.org/genproto v0.0.0-20200620020550-bd6e04640131 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
 )
+
+replace google.golang.org/grpc => google.golang.org/grpc v1.26.0
+
+replace github.com/lucas-clemente/quic-go => github.com/lucas-clemente/quic-go v0.14.1

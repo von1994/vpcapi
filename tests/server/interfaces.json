@@ -1,0 +1,152 @@
+{"data": [
+	{
+		"instanceSet": {"instanceId": "n1"},
+		"macAddress": "52:54:00:91:b5:b2",
+		"networkInterfaceId": "n1.cbond9",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.2"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n1"},
+		"macAddress": "52:54:00:8f:78:cc",
+		"networkInterfaceId": "n1.cbond10",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.3"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n1"},
+		"macAddress": "52:54:00:18:51:15",
+		"networkInterfaceId": "n1.cbond11",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.4"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n1"},
+		"macAddress": "52:54:00:38:f2:7a",
+		"networkInterfaceId": "n1.cbond12",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.5"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n1"},
+		"macAddress": "52:54:00:6b:02:31",
+		"networkInterfaceId": "n1.cbond13",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.6"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n2"},
+		"macAddress": "52:54:00:50:d0:60",
+		"networkInterfaceId": "n2.cbond9",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.7"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n2"},
+		"macAddress": "52:54:00:cb:8f:fb",
+		"networkInterfaceId": "n2.cbond10",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.8"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n2"},
+		"macAddress": "52:54:00:69:42:df",
+		"networkInterfaceId": "n2.cbond11",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.9"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n2"},
+		"macAddress": "52:54:00:dc:8d:87",
+		"networkInterfaceId": "n2.cbond12",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.10"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n2"},
+		"macAddress": "52:54:00:44:87:1a",
+		"networkInterfaceId": "n2.cbond13",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.11"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n3"},
+		"macAddress": "52:54:00:67:b1:f7",
+		"networkInterfaceId": "n3.cbond9",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.12"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n3"},
+		"macAddress": "52:54:00:be:07:73",
+		"networkInterfaceId": "n3.cbond10",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.13"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n3"},
+		"macAddress": "52:54:00:76:9e:d3",
+		"networkInterfaceId": "n3.cbond11",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.14"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n3"},
+		"macAddress": "52:54:00:05:e3:89",
+		"networkInterfaceId": "n3.cbond12",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.15"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	},
+	{
+		"instanceSet": {"instanceId": "n3"},
+		"macAddress": "52:54:00:f6:43:1a",
+		"networkInterfaceId": "n3.cbond13",
+		"primary": false,
+		"privateIpAddressesSet": [{"primary": true, "privateIpAddress": "192.168.144.16"}],
+		"subnetId": "foo",
+		"vpcId": "foo",
+		"vpcName": "foo"
+	}]
+}
