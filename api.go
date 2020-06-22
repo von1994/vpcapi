@@ -148,6 +148,7 @@ func GetInstanceInterfaces(conf VPC, instanceID string) ([]DescribeInterfacesNet
 func assignInferfaceSecondaryIP(conf VPC, interfaceID string) error {
 	params := getBaseParams("AssignPrivateIpAddresses", conf.VPCID)
 	params["networkInterfaceId"] = interfaceID
+	params["secondaryPrivateIpAddressCount"] = "1"
 	resp, err := doRequest(conf, params)
 	if err != nil {
 		return fmt.Errorf("VPC.API: assignInferfaceSecondaryIP doRequest failed with: %v", err)
