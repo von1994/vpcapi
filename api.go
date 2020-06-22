@@ -89,6 +89,20 @@ func GetInterface(conf VPC, interfaceID string) (*DescribeInterfacesNetworkInter
 	return &describeInterfacesResp.Data.Data[0], nil
 }
 
+// GetInterfaces get all network interfaces on the vpc
+func GetInterfaces(conf VPC) ([]DescribeInterfacesNetworkInterface, error) {
+	params := getDescribeNetworkInterfacesParams(conf.VPCID)
+	resp, err := doRequest(conf, params)
+	if err != nil {
+		return nil, err
+	}
+	describeInterfacesResp := &DescribeInterfacesResponse{}
+	if err = json.Unmarshal(resp, describeInterfacesResp); err != nil {
+		return nil, err
+	}
+	return describeInterfacesResp.Data.Data, nil
+}
+
 // GetInterfaceIPs get network interface IPs by given interface ID
 func GetInterfaceIPs(conf VPC, interfaceID string) ([]string, error) {
 	intf, err := GetInterface(conf, interfaceID)
@@ -137,12 +151,8 @@ func GetInstanceInterfaces(conf VPC, instanceID string) ([]DescribeInterfacesNet
 	if err = json.Unmarshal(resp, describeInterfacesResp); err != nil {
 		return nil, err
 	}
-	interfaceIDs := []DescribeInterfacesNetworkInterface{}
-	for _, intf := range describeInterfacesResp.Data.Data {
-		interfaceIDs = append(interfaceIDs, intf)
-	}
 	log.Printf("VPC.API: getInstanceInterfaces for %s: %v\n", instanceID, describeInterfacesResp)
-	return interfaceIDs, nil
+	return describeInterfacesResp.Data.Data, nil
 }
 
 func assignInferfaceSecondaryIP(conf VPC, interfaceID string) error {
