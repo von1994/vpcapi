@@ -1,6 +1,32 @@
 package vpcapi
 
 const (
+	// AnnoKeyVPCIPAM is used to enable IPAM for VPC.  To enable it set value to true-like.
+	// TODO: it's necessary to add support for VPC in IPClaim CRD, since user may want to known IPs before they
+	// deploy Pods.
+	AnnoKeyVPCIPAM = "alcor.io/vpc-cni.ipam"
+	// AnnoKeyVPCIPRetain tells cni not to call VPC api to release IP when pod deleted, mostly beside of enabled key
+	// this is the only one can set in annotations for a new created pod
+	AnnoKeyVPCIPRetain = "alcor.io/vpc-cni.ipRetain"
+	// AnnoKeyVPCIP records IP allocated from VPC, cni will patch IP with this key to pod annotations.
+	// IF a controller want to make pod IP retained, beside of setting key "ipRetain" to true-like, the contoller
+	// itself should watch this key, and records it value. So when pod is deleted by accident, controller can create
+	// a new pod with previous IP with this key as a pod annotation.
+	AnnoKeyVPCIP = "alcor.io/vpc-cni.ip"
+	// AnnoKeyVPCNICMAC records MAC address of network interface on which pod traffic will go through.
+	// Since, inside of CVM, MAC address is the only identity to locate an interface, so this key is used by CNI itself.
+	AnnoKeyVPCNICMAC = "alcor.io/vpc-cni.nicMAC"
+	// AnnoKeyVPCNICID records ID of network interface on which pod traffic will go through, overlay APIs like describe
+	// interface, assign IP, release IP, migrate IP will use interface ID. Only useful to CNI itself.
+	AnnoKeyVPCNICID = "alcor.io/vpc-cni.nicID"
+	// AnnoKeyVPCInstanceID records which CVM pod is running on. This key will help CNI to determine whether "pod migration"
+	// happend, which means old pod is deleted by any reason, while a new pod with the same IP and hostname created to
+	// replace the deleted one. For case, if controller try to make the new created pod scheduled to the same node, it's OK,
+	// since, CNI will find nothing changed; but if pod is scheduled to another node, on that node, CNI will find that
+	// instanceID in pod annotations not match instanceID of node, which means it's "pod migration". So for "pod migration",
+	// CNI need to call overlay API to do ip migration.
+	AnnoKeyVPCInstanceID = "alcor.io/vpc-cni.instanceID"
+
 	// VPCPolicyExclusive policy will make sure each pod have a separate CVM network interface to use
 	VPCPolicyExclusive = "Exclusive"
 	// VPCPolicyShare policy as default policy, will make pods share CVM network interfaces with each other, except the primary interface
