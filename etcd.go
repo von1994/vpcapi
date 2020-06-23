@@ -69,6 +69,18 @@ func NewEtcdv3Client(caCertFile, certFile, keyFile, etcdEndpoints string) (*Etcd
 	if err != nil {
 		return nil, err
 	}
+
+	// test clientv3 connectivity
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	ops := []clientv3.OpOption{
+		clientv3.WithPrefix(),
+		clientv3.WithLimit(1),
+	}
+	if _, err := client.Get(ctx, "/", ops...); err != nil {
+		return nil, err
+	}
+
 	return &Etcdv3Client{Client: client}, nil
 }
 
