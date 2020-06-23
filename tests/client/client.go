@@ -17,6 +17,25 @@ func main() {
 		SecretID:       "foo",
 		SecretKey:      "foo",
 		Region:         "foo",
+		IPAssign: vpcapi.IPAssign{
+			Retry:    30,
+			Interval: 300,
+		},
+		IPRelease: vpcapi.IPRelease{
+			Retry:    30,
+			Interval: 300,
+		},
+		IPMigrate: vpcapi.IPMigrate{
+			Retry:             30,
+			Interval:          300,
+			PostCheckRetry:    3,
+			PostCheckInterval: 300,
+		},
+		IPDetect: vpcapi.IPDetect{
+			Retry:    30,
+			Interval: 300,
+			Delay:    100,
+		},
 	}
 	if len(os.Args) < 2 {
 		fmt.Println("not enough parameters")
