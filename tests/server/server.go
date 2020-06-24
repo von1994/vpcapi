@@ -184,15 +184,17 @@ func releaseIP(url, ifName, ip string) {
 	}
 	for idx := range interfaces.Data {
 		if interfaces.Data[idx].NetworkInterfaceID == ifName {
-			ipIdx := 0
+			ipIdx := -1
 			for _idx := range interfaces.Data[idx].PrivateIPAddressSet {
 				if interfaces.Data[idx].PrivateIPAddressSet[_idx].PrivateIPAddress == ip {
 					ipIdx = _idx
 					break
 				}
 			}
-			interfaces.Data[idx].PrivateIPAddressSet = append(interfaces.Data[idx].PrivateIPAddressSet[:ipIdx], interfaces.Data[idx].PrivateIPAddressSet[ipIdx+1:len(interfaces.Data[idx].PrivateIPAddressSet)]...)
-			fmt.Printf("After release: %v\n", interfaces.Data[idx].PrivateIPAddressSet)
+			if ipIdx >= 0 {
+				interfaces.Data[idx].PrivateIPAddressSet = append(interfaces.Data[idx].PrivateIPAddressSet[:ipIdx], interfaces.Data[idx].PrivateIPAddressSet[ipIdx+1:len(interfaces.Data[idx].PrivateIPAddressSet)]...)
+				fmt.Printf("After release: %v\n", interfaces.Data[idx].PrivateIPAddressSet)
+			}
 			break
 		}
 	}
