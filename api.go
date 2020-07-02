@@ -274,7 +274,7 @@ func MigrateIP(conf VPC, ip, oldInterfaceID, newInterfaceID string) error {
 		time.Sleep(time.Duration(conf.IPMigrate.Interval) * time.Millisecond)
 	}
 	if !ok {
-		return fmt.Errorf("VPC.API: failed to migrate Pod IP %s between intefaces, %s => %s", ip, oldInterfaceID, newInterfaceID)
+		return fmt.Errorf("VPC.API: failed to migrate Pod IP %s between intefaces, %s => %s, since: %v", ip, oldInterfaceID, newInterfaceID, err)
 	}
 	return nil
 }
