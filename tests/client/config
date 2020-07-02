@@ -1,0 +1,30 @@
+{
+	"secretID": "foo",
+	"secretKey": "bar",
+	"vpcID": "buz",
+	"region": "foo",
+	"MTU": 1450,
+	"cvmAPIVersion": "v3",
+	"cvmAPIEndpoint": "localhost:8443",
+	"vpcAPIVersion": "v2",
+	"vpcAPIEndpoint": "localhost:8443",
+	"v2URL": "/v2/index.php",
+	"v3URL": "/",
+	"nodeIfPrefix": "cbond",
+	"ipAssign": {
+		"retry": 30,
+		"interval": 300
+	},
+	"ipMigrate": {
+		"retry": 30,
+		"interval": 300
+	},
+	"ipRelease": {
+		"retry": 30,
+		"interval": 300
+	},
+	"ipDetect": {
+		"retry": 30,
+		"interval": 300
+	}
+}

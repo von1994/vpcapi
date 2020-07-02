@@ -3,39 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
+	"io/ioutil"
+	"encoding/json"
 
 	"github.com/onionpiece/vpcapi"
 )
 
 func main() {
-	conf := vpcapi.VPC{
-		VPCAPIEndpoint: "localhost:8443",
-		CVMAPIEndpoint: "localhost:8443",
-		V2URI:          "/v2/index.php",
-		V3URI:          "/",
-		VPCID:          "foo",
-		SecretID:       "foo",
-		SecretKey:      "foo",
-		Region:         "foo",
-		IPAssign: vpcapi.IPAssign{
-			Retry:    30,
-			Interval: 300,
-		},
-		IPRelease: vpcapi.IPRelease{
-			Retry:    30,
-			Interval: 300,
-		},
-		IPMigrate: vpcapi.IPMigrate{
-			Retry:             30,
-			Interval:          300,
-			PostCheckRetry:    3,
-			PostCheckInterval: 300,
-		},
-		IPDetect: vpcapi.IPDetect{
-			Retry:    30,
-			Interval: 300,
-			Delay:    100,
-		},
+	data, err := ioutil.ReadFile("./config")
+	if err != nil {
+		panic(err)
+	}
+	conf := vpcapi.VPC{}
+	if err := json.Unmarshal(data, &conf); err != nil {
+		panic(err)
 	}
 	if len(os.Args) < 2 {
 		fmt.Println("not enough parameters")
@@ -110,10 +91,22 @@ func main() {
 		}
 	case "getInterfaces":
 		{
-			if interfaces, err := vpcapi.GetInterfaces(conf); err != nil {
+			interfaces, err := vpcapi.GetInterfaces(conf)
+			if err != nil {
 				panic(err)
-			} else {
-				fmt.Printf("Interfaces: %v\n", interfaces)
+			}
+			for _, intf := range interfaces {
+				primaryIP := ""
+				secondaryIPs := []string{}
+				for _, ip := range intf.PrivateIPAddressSet {
+					if ip.Primary {
+						primaryIP = ip.PrivateIPAddress
+					} else {
+						secondaryIPs = append(secondaryIPs, ip.PrivateIPAddress)
+					}
+				}
+				fmt.Printf("InterfaceID:%s\tMAC:%s\tPrimaryIP:%s\n", intf.NetworkInterfaceID, intf.MacAddress, primaryIP)
+				fmt.Printf("\tsecondaryIPs: %v\n", secondaryIPs)
 			}
 		}
 	}
