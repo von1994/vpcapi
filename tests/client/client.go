@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"io/ioutil"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"time"
 
 	"github.com/onionpiece/vpcapi"
 )
@@ -57,18 +58,21 @@ func main() {
 			if err := vpcapi.AssignIP(conf, interfaces[chosenIdx].NetworkInterfaceID); err != nil {
 				panic(err)
 			}
-			ips, _ := vpcapi.GetInterfaceIPs(conf, interfaces[chosenIdx].NetworkInterfaceID)
-			fmt.Printf("ips: %v\n", ips)
-			for _, ip := range ips {
-				exists := false
-				for _, _ip := range originIPs {
-					if ip == _ip {
-						exists = true
+			time.Sleep(time.Duration(conf.IPDetect.Delay))
+			found := false
+			for i := 0; i != conf.IPDetect.Retry; i++ {
+				ips, _ := vpcapi.GetInterfaceIPs(conf, interfaces[chosenIdx].NetworkInterfaceID)
+				for _, newIP := range ips {
+					if contains(originIPs, newIP) {
+						continue
 					}
-				}
-				if !exists {
 					fmt.Printf("New IP: %s, instanceID: %s, MAC: %s\n",
-						ip, interfaces[chosenIdx].NetworkInterfaceID, interfaces[chosenIdx].MacAddress)
+						newIP, interfaces[chosenIdx].NetworkInterfaceID, interfaces[chosenIdx].MacAddress)
+					found = true
+					break
+				}
+				if found {
+					break
 				}
 			}
 		}
@@ -110,4 +114,13 @@ func main() {
 			}
 		}
 	}
+}
+
+func contains(items []string, one string) bool {
+	for _, item := range items {
+		if item == one {
+			return true
+		}
+	}
+	return false
 }
