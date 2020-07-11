@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/onionpiece/vpcapi"
+	"github.com/von1994/vpcapi"
 )
 
 func main() {

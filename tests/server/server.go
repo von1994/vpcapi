@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	vpc "github.com/onionpiece/vpcapi"
+	vpc "github.com/von1994/vpcapi"
 )
 
 type Node struct {

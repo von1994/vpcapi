@@ -1,4 +1,4 @@
-module github.com/onionpiece/vpcapi
+module github.com/von1994/vpcapi
 
 go 1.13
 

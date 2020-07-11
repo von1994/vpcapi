@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strconv"
 	"time"
 )
 
@@ -260,12 +261,35 @@ func ReleaseIP(conf VPC, interfaceID, podIP string) error {
 	return nil
 }
 
+func CheckMigrateIPStatus(conf VPC, podIP, oldInterfaceID, newInterfaceID string) error {
+	intf, err := GetInterfaceByIP(conf, podIP)
+	if err != nil {
+		return fmt.Errorf("VPC.API: getInterfaceByIP doRequest failed with: %v", err)
+	}
+	if intf.NetworkInterfaceID == oldInterfaceID {
+		return fmt.Errorf("VPC.API: Migrate IP %s failed, retry once more", podIP)
+	} else if intf.NetworkInterfaceID == newInterfaceID {
+		return nil
+	} else {
+		return fmt.Errorf("VPC.API: IP not between in %s and %s", oldInterfaceID, newInterfaceID)
+	}
+}
+
 // MigrateIP will invoke VPC API to migrate IP from old interface to new interface
 func MigrateIP(conf VPC, ip, oldInterfaceID, newInterfaceID string) error {
 	// the API is weak, if we invoke it frequently, error like "您操作的资源正在执行其他操作，请稍后重试" will raise
 	ok := false
 	var err error
 	for i := 0; i != conf.IPMigrate.Retry; i++ {
+		if i > 0 {
+			err = CheckMigrateIPStatus(conf, ip, oldInterfaceID, newInterfaceID)
+			if err == nil {
+				log.Printf("VPC.API: at No.%s retry, migrate IP already done.", strconv.Itoa(i))
+				ok = true
+				break
+			}
+			log.Printf("VPC.API: check migrate IP status with error: %s", err.Error())
+		}
 		err = migrateInterfaceSecondaryIP(conf, ip, oldInterfaceID, newInterfaceID)
 		if err == nil {
 			ok = true
